@@ -1,11 +1,10 @@
-
 package dita.inventory.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Statement;
+
 
 public class Database
 {
@@ -25,7 +24,7 @@ public class Database
         }
         catch(SQLException ex)
         {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Unable to start connection to the database");
         }
 
     }
@@ -39,9 +38,32 @@ public class Database
         }
         catch(SQLException ex)
         {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Unable to close connection");
         }
 
+    }
+
+    public static void createTables()
+    {
+        String query;
+        try
+        {
+            Statement statement = conn.createStatement();
+            query = "Create table Items(name varchar(255)," +
+                    "quantity integer," +
+                    "currentQuantity integer," +
+                    "primary key(name))";
+            
+            statement.executeUpdate(query);
+            
+            System.out.println("Tables created successfully");
+        }
+        catch(SQLException ex)
+        {
+            // Ignore exception if its a duplicate table
+            if(!ex.getSQLState().equals("X0Y32"))
+                System.err.println("Unable to create tables: "+ex.getMessage());
+        }
     }
 
 }

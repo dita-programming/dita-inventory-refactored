@@ -82,7 +82,7 @@ public class Item implements BaseModel
     @Override
     public String toString()
     {
-        return "ItemsModel{" + "name=" + name + ", quantity=" + quantity + ", currentQuantity=" + currentQuantity + ", query=" + query + '}';
+        return "Item: " + "name=" + name + ", quantity=" + quantity + ", currentQuantity=" + currentQuantity;
     }
 
 }

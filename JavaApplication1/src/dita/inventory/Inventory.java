@@ -10,6 +10,7 @@ public class Inventory
     public static void main(String[] args)
     {
         Database.startConnection();
+        Database.createTables();
         Item item = new Item();
         System.out.println(item.toString());
         Item item2 = new Item("football", 20, 15);
