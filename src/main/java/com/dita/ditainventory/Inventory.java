@@ -1,6 +1,7 @@
 package com.dita.ditainventory;
 
 import com.dita.ditainventory.models.Team;
+import java.util.HashMap;
 
 public class Inventory
 {
@@ -10,9 +11,12 @@ public class Inventory
      */
     public static void main(String[] args)
     {
-        Team team = new Team("football");
-        team.save();
-        System.out.println("success");
+        Team team1 = new Team("football");
+        team1.save();
+        Team team2 = new Team("volleyball");
+        team2.save();
+        System.out.println(Team.read(new HashMap()).toString());
+        Team.close();
     }
     
 }

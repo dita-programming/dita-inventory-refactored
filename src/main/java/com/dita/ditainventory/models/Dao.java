@@ -1,25 +1,49 @@
 package com.dita.ditainventory.models;
 
+import java.util.HashMap;
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 
 public class Dao
 {
-    SessionFactory factory;
-    public Dao()
-    {
-        try
-        {
-            factory = new Configuration()
+    private static SessionFactory factory;
+    
+    static {
+        factory = new Configuration()
                     .addPackage("com.dita.ditainventory.models")
                     .addAnnotatedClass(Team.class)
                     .configure().buildSessionFactory();
-        }
-        catch(Exception ex)
+    }
+    
+    public static List read()
+    {
+        Session session = factory.openSession();
+        Criteria criteria = session.createCriteria(Dao.class);
+        List result = criteria.list();
+        return result;
+    }
+    
+    public static List read(HashMap dict)
+    {
+        if(!dict.isEmpty())
         {
-            System.err.println(ex.getMessage());
+            Session session = factory.openSession();
+            Criteria criteria = session.createCriteria(Dao.class);
+            for(Object key: dict.keySet())
+            {
+                criteria.add(Restrictions.eq((String) key, dict.get(key)));
+            }
+            List result = criteria.list();
+            return result;
+        }
+        else
+        {
+            return Dao.read();
         }
     }
     
@@ -32,9 +56,13 @@ public class Dao
     
     public void delete()
     {
-        try (Session session = factory.openSession())
-        {
-            session.delete(this);
-        }
+        Session session = factory.openSession();
+        session.delete(this);
+        session.close();
+    }
+    
+    public static void close()
+    {
+        factory.close();
     }
 }

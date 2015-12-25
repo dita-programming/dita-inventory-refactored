@@ -17,12 +17,10 @@ public class Team extends Dao implements Serializable
 
     public Team()
     {
-        super();
     }
 
     public Team(String name)
     {
-        super();
         this.name = name;
     }
 
@@ -48,5 +46,11 @@ public class Team extends Dao implements Serializable
     public void setName(String name)
     {
         this.name = name;
-    }    
+    } 
+
+    @Override
+    public String toString()
+    {
+        return "Team{" + "id=" + id + ", name=" + name + '}';
+    }
 }
