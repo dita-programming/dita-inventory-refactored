@@ -37,7 +37,7 @@ public class Team extends Dao implements Serializable
         this.id = id;
     }
 
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     public String getName()
     {
         return name;

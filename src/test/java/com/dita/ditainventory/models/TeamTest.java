@@ -52,6 +52,24 @@ public class TeamTest
         filters.put("name", "football");
         List result = Team.read(filters);
         assertEquals(team.toString(), result.get(0).toString());
+        team.delete();
+    }
+    
+    /**
+     * Test successful team update
+     */
+    @org.junit.Test
+    public void testTeamUpdate()
+    {
+        Team team = new Team("football");
+        team.save();
+        team.setName("tennis");
+        team.save();
+        HashMap filters =  new HashMap();
+        filters.put("name", "tennis");
+        List result = Team.read(filters);
+        assertEquals(team.toString(), result.get(0).toString());
+        team.delete();
     }
     
 }

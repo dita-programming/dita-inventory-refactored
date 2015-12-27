@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
@@ -50,7 +51,9 @@ public class Dao
     public void save()
     {
         Session session = factory.openSession();
+        Transaction trans = session.beginTransaction();
         session.saveOrUpdate(this);
+        trans.commit();
         session.close();
     }
     
@@ -58,6 +61,7 @@ public class Dao
     {
         Session session = factory.openSession();
         session.delete(this);
+        session.flush();
         session.close();
     }
     

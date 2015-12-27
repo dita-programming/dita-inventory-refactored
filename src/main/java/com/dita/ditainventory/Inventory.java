@@ -1,7 +1,6 @@
 package com.dita.ditainventory;
 
-import com.dita.ditainventory.models.Team;
-import java.util.HashMap;
+import com.dita.ditainventory.views.TeamsGui;
 
 public class Inventory
 {
@@ -11,12 +10,8 @@ public class Inventory
      */
     public static void main(String[] args)
     {
-        Team team1 = new Team("football");
-        team1.save();
-        Team team2 = new Team("volleyball");
-        team2.save();
-        System.out.println(Team.read(new HashMap()).toString());
-        Team.close();
+        TeamsGui teams = new TeamsGui();
+        teams.setVisible(true);
     }
     
 }
